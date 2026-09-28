@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Xygeni-Scanner
-        uses: xygeni/xygeni-action@5.38.0
+        uses: xygeni/xygeni-action@v6.4.0
         id: Xygeni-Scanner
         with:
           # The xygeni api token
