@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  xygeni-scan:
+    runs-on: ubuntu-latest
+    name: xygeni-github-action
+    steps:
+      # Checkout the repository sources (GITHUB_WORKSPACE)
+      - name: Checkout
+        # You may instead pin to an action SHA
+        uses: actions/checkout@v6.0.1
+        with:
+          # The default depth of 1 commit is not enough for some scans
+          fetch-depth: 0
+
+      - name: Xygeni-Scanner
+        uses: xygeni/xygeni-action@5.38.0
+        id: Xygeni-Scanner
+        with:
+          # The xygeni api token
+          token: ${{ secrets.XYGENI_TOKEN }}
+          # Checking the GitHub configuration requires a token with sufficient permissions.
+          # The default token (GITHUB_TOKEN) does not have enough permissions.
+          gh_token: ${{ secrets.GH_PAT }}
